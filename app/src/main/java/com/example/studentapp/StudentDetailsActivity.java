@@ -41,7 +41,9 @@ public class StudentDetailsActivity extends AppCompatActivity {
         }
 
         buttonEdit.setOnClickListener(v -> {
-            Toast.makeText(this, "Edit screen coming in Step 4", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(StudentDetailsActivity.this, EditStudentActivity.class);
+            intent.putExtra("STUDENT_ID", studentId);
+            startActivity(intent);
         });
     }
 

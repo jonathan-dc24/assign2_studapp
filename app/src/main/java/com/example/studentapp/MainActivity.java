@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         fabAddStudent.setOnClickListener(v -> {
-            Toast.makeText(this, "Add Student screen coming in next step", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MainActivity.this, AddStudentActivity.class);
+            startActivity(intent);
         });
     }
 

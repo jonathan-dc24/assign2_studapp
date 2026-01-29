@@ -30,6 +30,11 @@
             android:label="@string/title_edit_student" />
 
         <activity
+            android:name=".AddStudentActivity"
+            android:exported="false"
+            android:label="@string/title_add_student" />
+
+        <activity
             android:name=".TestActivity"
             android:exported="false" />
 

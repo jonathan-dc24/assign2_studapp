@@ -2,6 +2,7 @@ package com.example.studentapp;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studentapp.models.Student;
@@ -14,6 +15,7 @@ public class EditStudentActivity extends AppCompatActivity {
     private TextInputEditText editTextName;
     private TextInputEditText editTextPhone;
     private TextInputEditText editTextAddress;
+    private CheckBox checkBoxChecked;
     private Button buttonSave;
     private Button buttonDelete;
     private Button buttonCancel;
@@ -31,6 +33,7 @@ public class EditStudentActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editTextName);
         editTextPhone = findViewById(R.id.editTextPhone);
         editTextAddress = findViewById(R.id.editTextAddress);
+        checkBoxChecked = findViewById(R.id.checkBoxChecked);
         buttonSave = findViewById(R.id.buttonSave);
         buttonDelete = findViewById(R.id.buttonDelete);
         buttonCancel = findViewById(R.id.buttonCancel);
@@ -56,6 +59,7 @@ public class EditStudentActivity extends AppCompatActivity {
             editTextName.setText(student.getName());
             editTextPhone.setText(student.getPhone());
             editTextAddress.setText(student.getAddress());
+            checkBoxChecked.setChecked(student.isChecked());
         } else {
             Toast.makeText(this, "Student not found", Toast.LENGTH_SHORT).show();
             finish();
@@ -67,6 +71,7 @@ public class EditStudentActivity extends AppCompatActivity {
         String name = editTextName.getText().toString().trim();
         String phone = editTextPhone.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
+        boolean checked = checkBoxChecked.isChecked();
 
         if (id.isEmpty() || name.isEmpty()) {
             Toast.makeText(this, "ID and Name are required", Toast.LENGTH_SHORT).show();
@@ -74,10 +79,7 @@ public class EditStudentActivity extends AppCompatActivity {
         }
 
         Student updatedStudent = new Student(id, name, phone, address);
-        Student originalStudent = repository.getById(originalStudentId);
-        if (originalStudent != null) {
-            updatedStudent.setChecked(originalStudent.isChecked());
-        }
+        updatedStudent.setChecked(checked);
 
         boolean success = repository.update(originalStudentId, updatedStudent);
         if (success) {

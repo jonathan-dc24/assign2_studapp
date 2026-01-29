@@ -30,10 +30,20 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new StudentAdapter(repository.getAll(), student -> {
-            Intent intent = new Intent(MainActivity.this, StudentDetailsActivity.class);
-            intent.putExtra("STUDENT_ID", student.getId());
-            startActivity(intent);
+        adapter = new StudentAdapter(repository.getAll(), new StudentAdapter.OnStudentClickListener() {
+            @Override
+            public void onStudentClick(Student student) {
+                Intent intent = new Intent(MainActivity.this, StudentDetailsActivity.class);
+                intent.putExtra("STUDENT_ID", student.getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onEditClick(Student student) {
+                Intent intent = new Intent(MainActivity.this, EditStudentActivity.class);
+                intent.putExtra("STUDENT_ID", student.getId());
+                startActivity(intent);
+            }
         });
 
         recyclerView.setAdapter(adapter);

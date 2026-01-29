@@ -2,6 +2,7 @@ package com.example.studentapp;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.studentapp.models.Student;
@@ -14,6 +15,7 @@ public class AddStudentActivity extends AppCompatActivity {
     private TextInputEditText editTextName;
     private TextInputEditText editTextPhone;
     private TextInputEditText editTextAddress;
+    private CheckBox checkBoxChecked;
     private Button buttonSave;
     private Button buttonCancel;
     private StudentRepository repository;
@@ -29,6 +31,7 @@ public class AddStudentActivity extends AppCompatActivity {
         editTextName = findViewById(R.id.editTextName);
         editTextPhone = findViewById(R.id.editTextPhone);
         editTextAddress = findViewById(R.id.editTextAddress);
+        checkBoxChecked = findViewById(R.id.checkBoxChecked);
         buttonSave = findViewById(R.id.buttonSave);
         buttonCancel = findViewById(R.id.buttonCancel);
 
@@ -41,6 +44,7 @@ public class AddStudentActivity extends AppCompatActivity {
         String name = editTextName.getText().toString().trim();
         String phone = editTextPhone.getText().toString().trim();
         String address = editTextAddress.getText().toString().trim();
+        boolean checked = checkBoxChecked.isChecked();
 
         if (id.isEmpty() || name.isEmpty()) {
             Toast.makeText(this, "ID and Name are required", Toast.LENGTH_SHORT).show();
@@ -53,6 +57,7 @@ public class AddStudentActivity extends AppCompatActivity {
         }
 
         Student newStudent = new Student(id, name, phone, address);
+        newStudent.setChecked(checked);
         repository.add(newStudent);
 
         Toast.makeText(this, "Student added successfully", Toast.LENGTH_SHORT).show();

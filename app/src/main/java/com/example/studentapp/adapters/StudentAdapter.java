@@ -3,13 +3,12 @@ package com.example.studentapp.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.studentapp.R;
 import com.example.studentapp.models.Student;
-import com.example.studentapp.repository.StudentRepository;
 import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
@@ -19,6 +18,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     public interface OnStudentClickListener {
         void onStudentClick(Student student);
+        void onEditClick(Student student);
     }
 
     public StudentAdapter(List<Student> students, OnStudentClickListener listener) {
@@ -53,23 +53,23 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     class StudentViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewName;
         private TextView textViewId;
-        private CheckBox checkBoxStudent;
+        private ImageButton buttonEdit;
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewId = itemView.findViewById(R.id.textViewId);
-            checkBoxStudent = itemView.findViewById(R.id.checkBoxStudent);
+            buttonEdit = itemView.findViewById(R.id.buttonEditStudent);
         }
 
         public void bind(Student student) {
             textViewName.setText(student.getName());
             textViewId.setText(student.getId());
-            checkBoxStudent.setChecked(student.isChecked());
 
-            checkBoxStudent.setOnClickListener(v -> {
-                student.setChecked(checkBoxStudent.isChecked());
-                StudentRepository.getInstance().update(student.getId(), student);
+            buttonEdit.setOnClickListener(v -> {
+                if (listener != null) {
+                    listener.onEditClick(student);
+                }
             });
 
             itemView.setOnClickListener(v -> {

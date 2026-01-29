@@ -18,6 +18,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".StudentDetailsActivity"
+            android:exported="false"
+            android:label="@string/title_student_details" />
+
     </application>
 
 </manifest>
